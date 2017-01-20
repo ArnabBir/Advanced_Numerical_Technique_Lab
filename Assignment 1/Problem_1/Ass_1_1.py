@@ -1,4 +1,5 @@
-import  numpy as np 
+import sys
+import numpy as np 
 import math
 import matplotlib.pyplot as plt 
 import matplotlib.patches as mpatches
@@ -21,14 +22,14 @@ def get_b(x, h):
 def get_c(x, h):
 	return 1/h**2 + A(x)/(2 * h)
 
-def ThomasAlgo(a, b, c, d, n):
+def ThomasAlgorithm(a, b, c, d, n):
 	 c_dash = np.zeros(n-1)
 	 d_dash = np.zeros(n-1)
 	 c_dash[0] = c[0] / b[0]
 	 d_dash[0] = d[0] / b[0]
 	 for itr in xrange(1, n-1):
 	 	c_dash[itr] = c[itr] / (b[itr] - a[itr] * c_dash[itr-1])
-	 	d_dash[itr] = d[itr] / (b[itr] - a[itr] * c_dash[itr-1])
+	 	d_dash[itr] = (d[itr] - a[itr]*d_dash[itr-1]) / (b[itr] - a[itr] * c_dash[itr-1])
 	 y = np.zeros(n-1)
 	 y[n-2] = d_dash[n-2]
 	 for itr in reversed(xrange(n-2)):
@@ -47,7 +48,7 @@ def TridiagonalBVP(x0, y0, xn, yn, h, n):
 		d[itr] = C(x[itr])
 	d[n-2] = C(x[n-2]) - c[n-2] * yn
 	#print a, b, c, d
-	return ThomasAlgo(a, b, c, d, n)
+	return ThomasAlgorithm(a, b, c, d, n)
 
 def main():
 	# h = 0.1, 0.05, 0.01
@@ -59,6 +60,7 @@ def main():
 	y0 = 0.0
 	yn = 0.0566
 	for step in stepsizes:
+		file = open("Resut_h_" + str(step) + ".txt", 'w')
 		n = int(math.ceil((xn - x0) / step))
 		x = [(x0 + step * itr) for itr in xrange(n+1)]
 		print x
@@ -66,7 +68,10 @@ def main():
 		y[0] = y0
 		y[1:n] = TridiagonalBVP(x0, y0, xn, yn, step, n)
 		y[n] = yn
-		print y
+		file.write("Value of y(x) with respect to x:\n\n\tx\ty(x)\n\n")
+		for i in xrange(n+1):
+			file.write("\t" + str(x[i]) + "\t" + str(y[i]) + "\n")
+		file.close()
 		plt.plot(x, y,  label="h={0}".format(step))
 		plt.xlabel('x')
 		plt.ylabel('y(x)')
