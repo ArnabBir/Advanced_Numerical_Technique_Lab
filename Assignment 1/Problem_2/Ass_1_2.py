@@ -42,14 +42,14 @@ def TridiagonalBVP(x0, xn, h, n):
 	b = [get_b(itr, h) for itr in x]
 	c = [get_c(itr, h) for itr in x]
 	d = [C(itr) for itr in x]
+	
 	b[0] += 4 / (2*h + 3) * a[0]
 	c[0] += (-1) / (2*h + 3) * a[0]
 
 	b[n-2] += 4 / (3 - 4*h) * c[n-2]
 	a[n-2] += (-1) / (3 - 4*h) * c[n-2]
 	d[n-2] += (2*h) / (3 - 4*h) * c[n-2]
-	print d
-	#print a, b, c, d
+
 	return ThomasAlgorithm(a, b, c, d, n)
 
 def main():
