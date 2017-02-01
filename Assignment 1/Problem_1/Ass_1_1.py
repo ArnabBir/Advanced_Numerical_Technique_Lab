@@ -1,3 +1,6 @@
+#Name : Arnab Bir
+#Roll No. : 14MA20009
+
 import sys
 import numpy as np 
 import math
@@ -63,7 +66,6 @@ def main():
 		file = open("Resut_h_" + str(step) + ".txt", 'w')
 		n = int(math.ceil((xn - x0) / step))
 		x = [(x0 + step * itr) for itr in xrange(n+1)]
-		print x
 		y = np.zeros(n+1)
 		y[0] = y0
 		y[1:n] = TridiagonalBVP(x0, y0, xn, yn, step, n)
