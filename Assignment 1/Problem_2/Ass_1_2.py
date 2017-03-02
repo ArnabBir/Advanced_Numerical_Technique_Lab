@@ -58,7 +58,7 @@ def TridiagonalBVP(x0, xn, h, n):
 def main():
 	# h = 0.1, 0.05, 0.01
 	#h = [0.1, 0.05, 0.01]
-	stepsizes = [0.1, 0.05, 0.025, 0.001]
+	stepsizes = [0.25, 0.1, 0.05, 0.025, 0.001]
 	# Boundary conditions y(1) = 0, y(1.4) = 0.0566
 	x0 = 0.0
 	xn = 1.0
