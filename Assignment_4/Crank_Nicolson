@@ -1,0 +1,6 @@
+import numpy as np
+from matplotlib import pyplot
+%matplotlib inline
+from matplotlib import rcParams
+rcParams['font.family'] = 'serif'
+rcParams['font.size'] = 16
